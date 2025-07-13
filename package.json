@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@inngest/agent-kit": "^0.9.0",
+    "@inngest/ai": "^0.1.5",
     "@prisma/client": "^6.11.1",
     "@prisma/extension-accelerate": "^2.0.2",
     "@tanstack/react-query": "^5.83.0",
