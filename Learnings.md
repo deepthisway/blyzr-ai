@@ -101,10 +101,19 @@ function ping_server() {
 
 ping_server &
 cd /home/user && npx next dev --turbopack
-
+---------------------------------------------------------------------------------
 To build and register your custom template with E2B, I used:
 e2b template build --name blyzer-nextjs-dev --cmd "/compile_page.sh"
 
 then publish it to the public
 e2b template publish --name blyzer-nextjs-dev
 e2b template publish -t "templateId"
+---------------------------------------------------------------------------------
+📦 Think of step.run(name, fn) like this:
+It wraps a block of code in a named “step” so Inngest can:
+->Log it
+->Time it
+->Capture errors and outputs
+->Show it in the UI/trace/debug views
+
+
