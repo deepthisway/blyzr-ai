@@ -23,10 +23,13 @@ export const helloWorld = inngest.createFunction(
     const summary = await writer.run(
       "Write a one-liner summary of what E2B sandboxes are."
     );
+
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);
-      return sandbox.getHost(3000);
+      const host = await sandbox.getHost(3000);
+      return `http://${host}`;
     })
+
     return {
       sandboxId,
       summary,
