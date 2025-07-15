@@ -13,9 +13,10 @@ const Page = () => {
   const handelSubmit = async ()=>{
     invoke.mutate({text});
   }
-  
+
   return (
-    <div>
+    <div className='flex flex-col justify-center h-screen gap-4 max-w-1/4 items-center mx-auto'>
+      <h1 className='text-2xl font-bold'>Invoke TRPC</h1>
       <Input
       type='text'
       placeholder='Enter your prompt'
