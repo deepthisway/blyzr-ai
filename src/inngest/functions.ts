@@ -142,11 +142,9 @@ export const helloWorld = inngest.createFunction(
       }
     })
 
-    // const messages = event.data.value ?? [
-    //   { role: "user", content: "Create a landing page saying Hello Deepanshu, make bg as red." },
-    // ];
-
-    const result = await network.run("Create a landing page saying Hello Deepanshu, make bg as red.");
+    const message = event.data.value;
+    console.log("message is:", message);
+    const result = await network.run("Create a page that say hello deeeepsdfg");
     
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);
