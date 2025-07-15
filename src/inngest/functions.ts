@@ -1,8 +1,8 @@
-import { createAgent, createTool } from "@inngest/agent-kit";
+import { createAgent, createNetwork, createTool } from "@inngest/agent-kit";
 import { gemini } from "inngest";
 import { inngest } from "./client";
 import { Sandbox } from "@e2b/code-interpreter";
-import { getSandbox } from "./util";
+import { getSandbox, lastAssistantTextMessage } from "./util";
 import { stderr, stdout } from "process";
 import z from "zod";
 import { PROMPT } from "@/prompt";
@@ -98,7 +98,7 @@ export const helloWorld = inngest.createFunction(
           description: "Read files from the sandbox",
           parameters: z.object({
             files: z.array(z.string())
-          }),
+          }) as any,
           handler: async ({files}, {step})  => {
             return await step?.run("readFiles", async ()=>  {
               try {
@@ -116,11 +116,37 @@ export const helloWorld = inngest.createFunction(
           }
         })
       ],
+      lifecycle: {
+        onResponse: async ({result, network})  => {
+          const lastAssistantText = lastAssistantTextMessage(result);
+          if(lastAssistantText && network)  {
+            if(lastAssistantText.includes("<task_summary")) { //  accordiing to the rule given in PROMPT
+              network.state.data.summary = lastAssistantText;
+            }
+          }
+          return result;
+        }
+      }
     });
+    const network = createNetwork({
+      name: "coding-network",
+      description: "A network for coding tasks.",
+      agents: [writer],
+      maxIter: 10,
+      router:  async ({network})=>  {
+        const summary = network.state.data.summary;
+        if(summary) {
+          return;
+        }
+        return writer; // we return the writer agent to continue processing 
+      }
+    })
 
-    const summary = await writer.run(
-      "Write a one-liner summary of what E2B sandboxes are."
-    );
+    // const messages = event.data.value ?? [
+    //   { role: "user", content: "Create a landing page saying Hello Deepanshu, make bg as red." },
+    // ];
+
+    const result = await network.run("Create a landing page saying Hello Deepanshu, make bg as red.");
     
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);
@@ -129,8 +155,10 @@ export const helloWorld = inngest.createFunction(
     })
 
     return {
-      sandboxId,
-      summary,
+      url: sandboxUrl,
+      summary: result.state.data.summary,
+      files: result.state.data.files || {},
+      title: "Fragment"
     };
   }
 );
