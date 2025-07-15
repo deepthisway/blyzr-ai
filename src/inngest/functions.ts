@@ -20,7 +20,7 @@ export const helloWorld = inngest.createFunction(
       name: "coding-agent",
       description: "An expert coding agent that writes code.",
       system: PROMPT,
-      model: gemini({ model: "gemini-2.5-flash" }),
+      model: gemini({ model: "gemini-2.5-flash"}),
       tools:[
         createTool({
           // This tools block gives the writer agent the ability to run shell commands securely using a sandbox
@@ -144,7 +144,7 @@ export const helloWorld = inngest.createFunction(
 
     const message = event.data.value;
     console.log("message is:", message);
-    const result = await network.run("Create a page that say hello deeeepsdfg");
+    const result = await network.run(message);
     
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);

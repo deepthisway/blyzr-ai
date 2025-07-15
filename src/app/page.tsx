@@ -9,19 +9,18 @@ import React, { useState } from 'react'
 const Page = () => { 
   const trpc = useTRPC();
   const invoke = useMutation(trpc.invoke.mutationOptions({}))
-  const [text, setText] = useState("");
+  const [value, setValue] = useState<string>('');
   const handelSubmit = async ()=>{
-    invoke.mutate({text});
+    invoke.mutate({value : value});
   }
 
   return (
     <div className='flex flex-col justify-center h-screen gap-4 max-w-1/4 items-center mx-auto'>
-      <h1 className='text-2xl font-bold'>Invoke TRPC</h1>
       <Input
       type='text'
       placeholder='Enter your prompt'
-      value = {text}
-      onChange={(e)=> setText(e.target.value)}
+      value = {value}
+      onChange={(e)=> setValue(e.target.value)}
       />
       <Button
         onClick={handelSubmit}
