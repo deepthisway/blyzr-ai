@@ -3,11 +3,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useTRPC } from '@/trpc/client'
 import { caller } from '@/trpc/server'
-import { useMutation} from '@tanstack/react-query'
+import { useMutation, useQuery} from '@tanstack/react-query'
 import React, { useState } from 'react'
 
 const Page = () => { 
   const trpc = useTRPC();
+  const {data : messages} = useQuery(trpc.messages.getMessages.queryOptions());
   const createMessage = useMutation(trpc.messages.create.mutationOptions({}))
   const [value, setValue] = useState<string>('');
   const handelSubmit = async ()=>{
@@ -28,6 +29,14 @@ const Page = () => {
       >
         Invoke TRPC
       </Button>
+    <div className='text-white'>
+        {messages?.map((message) => (
+          <div key={message.id} className='p-2 border-b border-gray-700'>
+            {message.content}
+            </div>
+        ))}
+
+    </div>
     </div>
   )
 }

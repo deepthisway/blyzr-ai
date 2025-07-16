@@ -6,7 +6,7 @@ import { createTRPCRouter } from "../init";
 // it combines all the routers into a single router
 // and exports it as the app's API
 
-const appRouter = createTRPCRouter({
+export const appRouter = createTRPCRouter({
   messages: messagesRouter
 })
 
