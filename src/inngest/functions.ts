@@ -141,7 +141,7 @@ export const elixier = inngest.createFunction(
     });
     const network = createNetwork({ // this helps to create a network that can run multiple agents in a sequence
       // the network is a collection of agents that can communicate with each other
-      // although we have a single agent, we still use a network to manage the state and flow of the agent
+      // although we have a single agent, still we use a network to manage the state and flow of the agent
       name: "coding-network",
       description: "A network for coding tasks.",
       agents: [Agent],

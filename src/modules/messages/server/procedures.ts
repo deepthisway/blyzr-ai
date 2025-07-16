@@ -20,7 +20,10 @@ export const messagesRouter = createTRPCRouter({
   create: baseProcedure // baseProcedure  Defines a callable API endpoint with input validation.
     .input(
       z.object({
-        value: z.string().min(1, "Message cannot be empty"),
+        value: z.string().min(1, "Message cannot be empty")
+        .min(1, "Message cannot be empty")
+        .max(10000, "Message cannot exceed 10000 characters"),
+        projectId: z.string()
       })
     )
     .mutation(async ({ input }) => {
@@ -29,12 +32,14 @@ export const messagesRouter = createTRPCRouter({
           content: input.value,
           role: "USER",
           type: "RESULT",
+          projectId: input.projectId,
         },
       });
       await inngest.send({
         name: "elixier/run",
         data: {
           value: input.value,
+          projectId: input.projectId,
         },
       });
       return createdMessage;
