@@ -3,16 +3,28 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useTRPC } from '@/trpc/client'
 import { caller } from '@/trpc/server'
-import { useMutation, useQuery} from '@tanstack/react-query'
+import { useMutation} from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const Page = () => { 
   const trpc = useTRPC();
-  const {data : messages} = useQuery(trpc.messages.getMessages.queryOptions());
+  const router = useRouter();
+
+  const createProject = useMutation(trpc.projects.create.mutationOptions({
+    onError: (error) => {
+      console.error("Error creating project:", error);
+    },
+    onSuccess: (data)=> {
+      router.push('/projects/' + data.id);
+      console.log("Project created successfully:", data);
+    }
+  }))
   const createMessage = useMutation(trpc.messages.create.mutationOptions({}))
   const [value, setValue] = useState<string>('');
+
   const handelSubmit = async ()=>{
-    createMessage.mutate({ value: value });
+    createProject.mutate({ value: value });
   }
 
   return (
@@ -29,14 +41,7 @@ const Page = () => {
       >
         Invoke TRPC
       </Button>
-    <div className='text-white'>
-        {messages?.map((message) => (
-          <div key={message.id} className='p-2 border-b border-gray-700'>
-            {message.content}
-            </div>
-        ))}
 
-    </div>
     </div>
   )
 }

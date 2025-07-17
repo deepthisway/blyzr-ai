@@ -173,6 +173,7 @@ export const elixier = inngest.createFunction(
       if(isError){
         return await prisma.message.create({
           data: {
+            projectId: event.data.projectId,
             content: "An error occurred while processing your request.",
             type: "ERROR",
             role: "ASSISTANT",
@@ -181,6 +182,7 @@ export const elixier = inngest.createFunction(
       }
       return await prisma.message.create({
         data: {
+          projectId: event.data.projectId,
           content: result.state.data.summary || "No summary provided",
           role: "ASSISTANT",
           type: "RESULT",
