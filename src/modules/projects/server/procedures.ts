@@ -7,7 +7,21 @@ import { generateSlug } from "random-word-slugs";
 // procedure is a single API in tRPC
 
 export const projectsRouter = createTRPCRouter({
-  // This procedure handles the retrieval of messages.
+  getOne: baseProcedure
+    .input(
+      z.object({
+        id: z.string().min(1, "Project ID is required to fetch a project"),
+      })
+    )
+    .query(async ({ input }) => {
+      const existingProject = await prisma.project.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+      return existingProject;
+    }),
+    
   getProjects: baseProcedure.query(async () => {
     const projects = await prisma.project.findMany({
       orderBy: {
@@ -17,7 +31,7 @@ export const projectsRouter = createTRPCRouter({
     return projects;
   }),
 
-  // This procedure handles the creation of a message.
+  // This procedure handles the creation of a project.
   create: baseProcedure // baseProcedure defines a callable API endpoint with input validation.
     .input(
       z.object({

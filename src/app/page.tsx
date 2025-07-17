@@ -11,7 +11,7 @@ const Page = () => {
   const trpc = useTRPC();
   const router = useRouter();
 
-  const createProject = useMutation(trpc.projects.create.mutationOptions({
+  const createProject = useMutation(trpc.projects.create.mutationOptions({ // onError and onSuccess are not the part of tRPC, they are part of react-query, mutationOptions is a method that allows you to pass these options to the mutation
     onError: (error) => {
       console.error("Error creating project:", error);
     },
@@ -20,7 +20,6 @@ const Page = () => {
       console.log("Project created successfully:", data);
     }
   }))
-  const createMessage = useMutation(trpc.messages.create.mutationOptions({}))
   const [value, setValue] = useState<string>('');
 
   const handelSubmit = async ()=>{
