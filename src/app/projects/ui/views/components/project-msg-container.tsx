@@ -11,7 +11,7 @@ interface Props {
 
 const MessageContainer = ({ projectId }: Props) => {
   const trpc = useTRPC();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null); // tp scroll to bottom each time chat loads
   const { data: messages } = useSuspenseQuery(
     trpc.messages.getMessages.queryOptions({
       projectId,
@@ -82,7 +82,7 @@ const MessageContainer = ({ projectId }: Props) => {
                   />
                 </div>
               ))}
-              <div ref={messagesEndRef} />
+              <div ref={messagesEndRef} />  
             </div>
           )}
         </div>
