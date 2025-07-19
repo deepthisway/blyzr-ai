@@ -4,19 +4,40 @@ import React, { useEffect, useRef } from "react";
 import MessageCard from "./MessageCard";
 import MessageForm from "./message-form";
 import { cn } from "@/lib/utils";
+import { Fragment } from "@/generated/prisma";
+import MessageLoading from "./MessageLoading";
 
-interface Props {
+interface MessageContainerProps {
   projectId: string;
+  activeFragment: Fragment;
+  setActiveFragment: (fragment: Fragment) => null;
 }
 
-const MessageContainer = ({ projectId }: Props) => {
+const MessageContainer = ({
+  projectId,
+  activeFragment,
+  setActiveFragment,
+}: MessageContainerProps) => {
   const trpc = useTRPC();
   const messagesEndRef = useRef<HTMLDivElement>(null); // tp scroll to bottom each time chat loads
+  
   const { data: messages } = useSuspenseQuery(
     trpc.messages.getMessages.queryOptions({
       projectId,
+    },{
+      refetchInterval: 5000
     })
   );
+  useEffect(()=>  {
+    const lastAssistantMsg = messages.findLast(
+      (message)=> {
+        message.role === "ASSISTANT"
+      }
+    )
+    if(lastAssistantMsg)  {
+      setActiveFragment(lastAssistantMsg.fragment)
+    }
+  }, [messages, setActiveFragment])
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -26,6 +47,9 @@ const MessageContainer = ({ projectId }: Props) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const lastMessage = messages[messages.length-1];
+  const isLastMessageUser = lastMessage?.role === "USER";
+
 
   return (
     <div className="flex flex-col h-full bg-background">
@@ -76,13 +100,14 @@ const MessageContainer = ({ projectId }: Props) => {
                     role={message.role}
                     fragment={message.fragment}
                     createdAt={message.createdAt}
-                    isActiveFragment={false}
-                    onFragmentClick={() => {}}
+                    isActiveFragment= {activeFragment?.id === message.fragment?.id}
+                    onFragmentClick={() => {setActiveFragment(message.fragment)}}
                     type={message.type}
                   />
                 </div>
               ))}
-              <div ref={messagesEndRef} />  
+              {isLastMessageUser && <MessageLoading/>}
+              <div ref={messagesEndRef} />
             </div>
           )}
         </div>

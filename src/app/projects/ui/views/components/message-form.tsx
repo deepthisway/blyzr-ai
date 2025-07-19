@@ -45,7 +45,11 @@ const MessageForm = ({ projectId }: Props) => {
         // Tells React Query to refetch the messages for the current project to get the fresh conversation
         trpc.messages.getMessages.queryOptions({ projectId })
       );
-    }
+    },
+    onError: (error) => {
+      // Handle the error here
+      console.error("Message creation failed:", error);
+    },
   }));
   const [isFocused, setIsFocused] = useState(false);
 
@@ -59,7 +63,7 @@ const MessageForm = ({ projectId }: Props) => {
         value: values.value.trim(),
         projectId,
       });
-      form.reset(); // Clear form after successful submission
+      form.reset(); 
     } catch (error) {
       console.error("Failed to send message:", error);
     }

@@ -116,4 +116,5 @@ It wraps a block of code in a named “step” so Inngest can:
 ->Capture errors and outputs
 ->Show it in the UI/trace/debug views
 
-
+The <Suspense> component in React is used for handling asynchronous loading of components — especially code-split components, data fetching, or lazy loading.
+It tells React: “While loading ProjectHeader, show the fallback <p>Loading.....</p>.”
