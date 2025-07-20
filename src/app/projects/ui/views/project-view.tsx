@@ -10,10 +10,9 @@ import ProjectHeader from "./components/ProjectHeader";
 import { FragmentWeb } from "./components/FragmentWeb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { CrownIcon, Link } from "lucide-react";
+import { CrownIcon, EyeIcon, CodeIcon, Link } from "lucide-react";
 import { CodeView } from "./components/code-view";
 import { FileExplorer } from "./components/file-explorer";
-
 interface Props {
     projectId : string
 }
@@ -54,9 +53,11 @@ export const ProjectView = ({projectId} : Props)   =>   {
                     onValueChange={(value) => setTabState(value as "web" | "code")}>
                         <TabsList className="h-8 p-0 bordder rounded-md">
                             <TabsTrigger value="web">
+                                <EyeIcon className="w-4 h-4"/>
                                 Web
                             </TabsTrigger>
                             <TabsTrigger value="code">
+                                <CodeIcon className="w-4 h-4"/>
                                 Code
                             </TabsTrigger>
                         </TabsList>
@@ -73,9 +74,8 @@ export const ProjectView = ({projectId} : Props)   =>   {
                                     <FragmentWeb data = {activeFragment}/>
                                 </Suspense>
                             )}
-                             
                         </TabsContent>
-                        <TabsContent value="code">
+                        <TabsContent value="code" className="min-h-0">
                             {!!activeFragment && (
                                 <Suspense fallback={<p>Loading....</p>}>
                                     <FileExplorer files={activeFragment.files as {[path: string]: string}}/>
