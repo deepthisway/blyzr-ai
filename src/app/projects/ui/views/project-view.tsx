@@ -8,6 +8,10 @@ import { Suspense, useState } from "react";
 import { Fragment } from "@/generated/prisma";
 import ProjectHeader from "./components/ProjectHeader";
 import { FragmentWeb } from "./components/FragmentWeb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { CrownIcon, Link } from "lucide-react";
+import { CodeView } from "./components/code-view";
 
 interface Props {
     projectId : string
@@ -19,6 +23,7 @@ export const ProjectView = ({projectId} : Props)   =>   {
     const {data : project} = useSuspenseQuery(trpc.projects.getOne.queryOptions({
         id : projectId
     }))
+    const [tabState, setTabState] = useState<'web' | 'code'>('web')
     console.log('project', project)
 
     const {data : messages} = useSuspenseQuery(trpc.messages.getMessages.queryOptions({
@@ -42,11 +47,37 @@ export const ProjectView = ({projectId} : Props)   =>   {
                 <ResizableHandle withHandle/>
                 <ResizablePanel defaultSize={65} minSize={20} className="flex flex-col min
                 -h-0">
-                    {!!activeFragment && (
-                        <Suspense fallback={<p>Loading....</p>}>
-                            <FragmentWeb data = {activeFragment}/>
-                        </Suspense>
-                    )}
+                    <Tabs className="h-full gap-y-0"
+                    defaultValue="web"
+                    value={tabState}
+                    onValueChange={(value) => setTabState(value as "web" | "code")}>
+                        <TabsList className="h-8 p-0 bordder rounded-md">
+                            <TabsTrigger value="web">
+                                Web
+                            </TabsTrigger>
+                            <TabsTrigger value="code">
+                                Code
+                            </TabsTrigger>
+                        </TabsList>
+                        <div className="ml-auto felx items-center gap-x-2">
+                            <Button asChild size='sm' variant='default'>
+                                <Link href={`/pricing`}>
+                                    <CrownIcon className="w-4 h-4"/> Upgrade 
+                                </Link>
+                            </Button>
+                        </div>
+                        <TabsContent value="web">
+                            {!!activeFragment && (
+                                <Suspense fallback={<p>Loading....</p>}>
+                                    <FragmentWeb data = {activeFragment}/>
+                                </Suspense>
+                            )}
+                             
+                        </TabsContent>
+                        <TabsContent value="code">
+                            <CodeView lang="ts" code="const a = 10;"/>
+                        </TabsContent>
+                </Tabs>
                 </ResizablePanel>
 
             </ResizablePanelGroup> 
