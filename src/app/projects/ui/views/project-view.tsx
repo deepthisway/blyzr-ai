@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { CrownIcon, Link } from "lucide-react";
 import { CodeView } from "./components/code-view";
+import { FileExplorer } from "./components/file-explorer";
 
 interface Props {
     projectId : string
@@ -75,7 +76,11 @@ export const ProjectView = ({projectId} : Props)   =>   {
                              
                         </TabsContent>
                         <TabsContent value="code">
-                            <CodeView lang="ts" code="const a = 10;"/>
+                            {!!activeFragment && (
+                                <Suspense fallback={<p>Loading....</p>}>
+                                    <FileExplorer files={activeFragment.files as {[path: string]: string}}/>
+                                </Suspense>
+                            )}
                         </TabsContent>
                 </Tabs>
                 </ResizablePanel>
