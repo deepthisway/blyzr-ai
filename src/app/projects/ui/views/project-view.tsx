@@ -7,6 +7,7 @@ import MessageContainer from "./components/project-msg-container";
 import { Suspense, useState } from "react";
 import { Fragment } from "@/generated/prisma";
 import ProjectHeader from "./components/ProjectHeader";
+import { FragmentWeb } from "./components/FragmentWeb";
 
 interface Props {
     projectId : string
@@ -41,8 +42,13 @@ export const ProjectView = ({projectId} : Props)   =>   {
                 <ResizableHandle withHandle/>
                 <ResizablePanel defaultSize={65} minSize={20} className="flex flex-col min
                 -h-0">
-                    Todo: Preview
+                    {!!activeFragment && (
+                        <Suspense fallback={<p>Loading....</p>}>
+                            <FragmentWeb data = {activeFragment}/>
+                        </Suspense>
+                    )}
                 </ResizablePanel>
+
             </ResizablePanelGroup> 
             </div>
     )

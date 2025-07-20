@@ -40,12 +40,10 @@ const ChatHeader = ({
   const trpc = useTRPC()
   const [theme, setTheme] = useState<Theme>('system')
 
-  // Fetch project data if projectId is provided
   const { data: project } = projectId ? useSuspenseQuery(
     trpc.projects.getOne.queryOptions({ id: projectId })
   ) : { data: null }
 
-  // Theme management
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as Theme || 'system'
     setTheme(savedTheme)
