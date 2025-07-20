@@ -9,8 +9,8 @@ import MessageLoading from "./MessageLoading";
 
 interface MessageContainerProps {
   projectId: string;
-  activeFragment: Fragment;
-  setActiveFragment: (fragment: Fragment) => null;
+  activeFragment: Fragment | null;
+  setActiveFragment: (fragment: Fragment | null) => void;
 }
 
 const MessageContainer = ({

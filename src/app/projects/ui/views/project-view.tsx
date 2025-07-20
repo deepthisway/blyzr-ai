@@ -35,23 +35,22 @@ export const ProjectView = ({projectId} : Props)   =>   {
             <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel defaultSize={35} minSize={20} className="flex flex-col min-h-0">
                     <Suspense fallback={<p>Loading.....</p>}>  
-                        <ProjectHeader projectId= {projectId}/>=
+                        <ProjectHeader projectId={projectId}/>
                     </Suspense>
                     <Suspense fallback={<p>Loading....</p>}>
                         <MessageContainer projectId={projectId}
-                        activeFragment = {activeFragment}
-                        setActiveFragment = {setActiveFragment}
+                        activeFragment={activeFragment}
+                        setActiveFragment={setActiveFragment}
                         />
                     </Suspense>
                 </ResizablePanel>
                 <ResizableHandle withHandle/>
-                <ResizablePanel defaultSize={65} minSize={20} className="flex flex-col min
-                -h-0">
+                <ResizablePanel defaultSize={65} minSize={20} className="flex flex-col min-h-0">
                     <Tabs className="h-full gap-y-0"
                     defaultValue="web"
                     value={tabState}
                     onValueChange={(value) => setTabState(value as "web" | "code")}>
-                        <TabsList className="h-8 p-0 bordder rounded-md">
+                        <TabsList className="h-8 p-0 border rounded-md">
                             <TabsTrigger value="web">
                                 <EyeIcon className="w-4 h-4"/>
                                 Web
@@ -61,7 +60,7 @@ export const ProjectView = ({projectId} : Props)   =>   {
                                 Code
                             </TabsTrigger>
                         </TabsList>
-                        <div className="ml-auto felx items-center gap-x-2">
+                        <div className="ml-auto flex items-center gap-x-2">
                             <Button asChild size='sm' variant='default'>
                                 <Link href={`/pricing`}>
                                     <CrownIcon className="w-4 h-4"/> Upgrade 

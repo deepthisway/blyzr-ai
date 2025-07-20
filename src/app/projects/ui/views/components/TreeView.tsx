@@ -46,31 +46,38 @@ interface TreeProps {
 const Tree = ({item, onSelect, selectedValue, parentPath}: TreeProps) => {
     const [name, ...items] = Array.isArray(item) ? item : [item];
     const currentPath = parentPath ? `${parentPath}/${name}` : name;
-    if(!items.length)    {
+    
+    if(!items.length) {
         const isSelected = selectedValue === currentPath;
         return (
-           <SidebarMenuButton isActive={isSelected}
-           className="data-[active=true]:bg-transparent">
-            <FileIcon/>
-            <span className="ml-2">{name}</span>
-           </SidebarMenuButton>
+            <SidebarMenuItem>
+                <SidebarMenuButton 
+                    isActive={isSelected}
+                    onClick={() => onSelect(currentPath)}
+                    className="data-[active=true]:bg-accent data-[active=true]:text-accent-foreground hover:bg-accent/50 transition-colors"
+                >
+                    <FileIcon className="h-4 w-4 text-muted-foreground" />
+                    <span className="ml-2 truncate text-sm">{name}</span>
+                </SidebarMenuButton>
+            </SidebarMenuItem>
         )
     }
+    
     // its a folder
     return (
         <SidebarMenuItem>
-            <Collapsible className="group/collapsible [&[data-state=open]>svg:first-child]:rotate-90">
+            <Collapsible className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90">
                 <CollapsibleTrigger asChild>
-                <SidebarMenuButton>
-                    <ChevronRightIcon/>
-                    <FolderIcon/>
-                    <span className="truncate">
-                        {name}
-                    </span>
-                </SidebarMenuButton>
+                    <SidebarMenuButton className="hover:bg-accent/50 transition-colors">
+                        <ChevronRightIcon className="h-4 w-4 text-muted-foreground transition-transform" />
+                        <FolderIcon className="h-4 w-4 text-muted-foreground" />
+                        <span className="ml-2 truncate text-sm font-medium">
+                            {name}
+                        </span>
+                    </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                    <SidebarMenuSub>
+                    <SidebarMenuSub className="ml-4 border-l border-border/50">
                         {items.map((item, index) => (
                             <Tree
                                 key={index}
