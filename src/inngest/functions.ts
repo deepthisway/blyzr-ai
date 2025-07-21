@@ -1,4 +1,4 @@
-import { createAgent, createNetwork, createTool,type Tool, gemini } from "@inngest/agent-kit";
+import { createAgent, createNetwork, createTool, gemini } from "@inngest/agent-kit";
 import { inngest } from "./client";
 import { Sandbox } from "@e2b/code-interpreter";
 import { getSandbox, lastAssistantTextMessage } from "./util";
@@ -72,9 +72,7 @@ export const elixier = inngest.createFunction(
               })
             ),
           }) as any,
-          handler: async ({ files  }, { step, network } : Tool.Options<AgentState>
-
-          ) => {
+          handler: async ({ files }, { step, network }: any) => {
             const result = await step?.run("createOrUpdateFiles", async () => {
               try {
                 const updatedFiles = network.state.data.file || {}; // used to track file state in memory (like a session store).
