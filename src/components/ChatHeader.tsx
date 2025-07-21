@@ -124,7 +124,7 @@ const ChatHeader = ({
               </h1>
               {showProjectInfo && project && (
                 <p className="text-xs text-muted-foreground">
-                  {project.description || 'AI Website Builder'}
+                  {project.name || 'AI Website Builder'}
                 </p>
               )}
             </div>
