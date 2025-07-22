@@ -20,7 +20,7 @@ const MessageContainer = ({
 }: MessageContainerProps) => {
   const trpc = useTRPC();
   const messagesEndRef = useRef<HTMLDivElement>(null); // tp scroll to bottom each time chat loads
-  
+  const lastAssistantMsgIdRef = useRef<string | null>(null);
   const { data: messages } = useSuspenseQuery(
     trpc.messages.getMessages.queryOptions({
       projectId,
@@ -34,7 +34,8 @@ const MessageContainer = ({
         message.role === "ASSISTANT"
       }
     )
-    if(lastAssistantMsg)  {
+    if(lastAssistantMsg?.fragment && lastAssistantMsg.id !== lastAssistantMsgIdRef.current)  {
+      lastAssistantMsgIdRef.current = lastAssistantMsg.id;
       setActiveFragment(lastAssistantMsg.fragment)
     }
   }, [messages, setActiveFragment])
