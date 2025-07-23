@@ -44,7 +44,7 @@ export const ProjectView = ({projectId} : Props)   =>   {
                         />
                     </Suspense>
                 </ResizablePanel>
-                <ResizableHandle withHandle/>
+                <ResizableHandle className="hover: bg:primary transition-colors"/>
                 <ResizablePanel defaultSize={65} minSize={20} className="flex flex-col min-h-0">
                     <Tabs className="h-full gap-y-0"
                     defaultValue="web"
@@ -66,7 +66,7 @@ export const ProjectView = ({projectId} : Props)   =>   {
                                     <CrownIcon className="w-4 h-4"/> Upgrade 
                                 </Link>
                             </Button>
-                        </div>
+                        </div>   
                         <TabsContent value="web">
                             {!!activeFragment && (
                                 <Suspense fallback={<p>Loading....</p>}>

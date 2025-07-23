@@ -37,6 +37,11 @@ const MessageContainer = ({
     if(lastAssistantMsg?.fragment && lastAssistantMsg.id !== lastAssistantMsgIdRef.current)  {
       lastAssistantMsgIdRef.current = lastAssistantMsg.id;
       setActiveFragment(lastAssistantMsg.fragment)
+      // this will help in not setting the same fragment again and again
+      // How this works?
+      // 1. We are storing the last assistant message id in the ref
+      // 2. When the last assistant message id changes, we set the active fragment
+      // 3. If the last assistant message id is same, we do not set the active fragment 
     }
   }, [messages, setActiveFragment])
 
