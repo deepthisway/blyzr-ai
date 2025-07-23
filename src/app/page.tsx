@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { Sparkles, Zap, ArrowRight, Code, Palette, Rocket, Star, Globe, Cpu, Shield, CloudLightningIcon, } from 'lucide-react'
+import { ProjectList } from './(home)/ui/components/project-list'
 
 const Page = () => {
   const trpc = useTRPC();
@@ -15,7 +16,7 @@ const Page = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -185,7 +186,7 @@ const Page = () => {
                   <div className="relative flex flex-col sm:flex-row gap-4 p-3 bg-black/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl">
                     <Input
                       type="text"
-                      placeholder="Describe your dream website... e.g., 'A luxury real estate platform with virtual tours'"
+                      placeholder="Describe your website... e.g., 'A website for a restaurant'"
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       onKeyPress={handleKeyPress}
@@ -242,6 +243,9 @@ const Page = () => {
             </div>
           </div>
         </section>
+
+        {/* Projects Section */}
+        <ProjectList />
 
         {/* Premium Footer */}
         <footer className="relative border-t border-white/10 bg-black/20 backdrop-blur-xl">
