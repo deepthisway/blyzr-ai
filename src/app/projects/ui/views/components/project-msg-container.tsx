@@ -31,7 +31,7 @@ const MessageContainer = ({
   useEffect(()=>  {
     const lastAssistantMsg = messages.findLast(
       (message)=> {
-        message.role === "ASSISTANT"
+        return message.role === "ASSISTANT"
       }
     )
     if(lastAssistantMsg?.fragment && lastAssistantMsg.id !== lastAssistantMsgIdRef.current)  {

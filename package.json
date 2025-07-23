@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:ignore-lint": "NEXT_LINT=false next build"
   },
   "dependencies": {
     "@e2b/code-interpreter": "^1.5.1",

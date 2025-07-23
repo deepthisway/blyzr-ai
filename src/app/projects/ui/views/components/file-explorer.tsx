@@ -6,7 +6,7 @@ import { Hint } from "./Hint";
 import { CodeView } from "./code-view";
 import { convertFilesToTreeItems } from "@/lib/utils";
 import { TreeView } from "./TreeView";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 
 type FileCollection = {

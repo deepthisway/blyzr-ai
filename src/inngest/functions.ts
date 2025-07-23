@@ -33,7 +33,7 @@ export const elixier = inngest.createFunction(
           parameters: z.object({
             //the input shape the tool expects eg. "ls -l"
             command: z.string(),
-          }) as any,
+          }) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
           handler: async ({ command }, { step }) => {
             // core function that runs when the agent uses the tool
             // step and command are coming from two diffent objs, hence seperated destructuring
@@ -71,8 +71,8 @@ export const elixier = inngest.createFunction(
                 content: z.string(),
               })
             ),
-          }) as any,
-          handler: async ({ files }, { step, network }: any) => {
+          }) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
+          handler: async ({ files }, { step, network }: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
             const result = await step?.run("createOrUpdateFiles", async () => {
               try {
                 const updatedFiles = network.state.data.file || {}; // used to track file state in memory (like a session store).
@@ -105,7 +105,7 @@ export const elixier = inngest.createFunction(
           description: "Read files from the sandbox",
           parameters: z.object({
             files: z.array(z.string()),
-          }) as any,
+          }) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
           handler: async ({ files }, { step }) => {
             return await step?.run("readFiles", async () => {
               try {

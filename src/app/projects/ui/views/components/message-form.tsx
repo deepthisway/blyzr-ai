@@ -39,7 +39,7 @@ const MessageForm = ({ projectId }: Props) => {
 
   const trpc = useTRPC();
   const createMessage = useMutation(trpc.messages.create.mutationOptions({
-    onSuccess: (data)=> {
+    onSuccess: ()=> {
       form.reset();
       queryClient.invalidateQueries(
         // Tells React Query to refetch the messages for the current project to get the fresh conversation
@@ -63,7 +63,6 @@ const MessageForm = ({ projectId }: Props) => {
         value: values.value.trim(),
         projectId,
       });
-      form.reset(); 
     } catch (error) {
       console.error("Failed to send message:", error);
     }

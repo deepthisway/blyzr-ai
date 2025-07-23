@@ -164,7 +164,7 @@ export const ProjectList = () => {
                             width: `${Math.max((topProjects?.length || 1) * (100 / Math.min(topProjects?.length || 1, 3)), 100)}%`
                         }}
                     >
-                        {topProjects?.map((project: Project, index: number) => (
+                        {topProjects?.map((project: Project) => (
                             <div
                                 key={project.id}
                                 className="group relative flex-shrink-0"

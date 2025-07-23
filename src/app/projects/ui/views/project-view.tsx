@@ -11,7 +11,6 @@ import { FragmentWeb } from "./components/FragmentWeb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { CrownIcon, EyeIcon, CodeIcon, Link } from "lucide-react";
-import { CodeView } from "./components/code-view";
 import { FileExplorer } from "./components/file-explorer";
 interface Props {
     projectId : string
@@ -26,9 +25,9 @@ export const ProjectView = ({projectId} : Props)   =>   {
     const [tabState, setTabState] = useState<'web' | 'code'>('web')
     console.log('project', project)
 
-    const {data : messages} = useSuspenseQuery(trpc.messages.getMessages.queryOptions({
-        projectId
-    }))
+    // const {data : messages} = useSuspenseQuery(trpc.messages.getMessages.queryOptions({
+    //     projectId
+    // }))
 
     return (
         <div className="h-screen">
