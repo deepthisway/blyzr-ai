@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { Sparkles, Zap, ArrowRight, Code, Palette, Rocket, Star, Globe, Cpu, Shield, CloudLightningIcon, } from 'lucide-react'
 import { ProjectList } from './(home)/ui/components/project-list'
-import { SignInButton, SignUpButton } from '@clerk/nextjs'
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
+import { UserControl } from '@/components/user-control'
 
 const Page = () => {
   const trpc = useTRPC();
@@ -139,16 +140,21 @@ const Page = () => {
                   <a href="#pricing" className="text-gray-300 hover:text-white transition-all duration-300 font-medium">
                     Pricing
                   </a>
-                  <SignInButton>
-                    <Button className=" from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 text-white border-0 rounded-full px-6 py-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                    Sign In
-                  </Button>
-                  </SignInButton>
-                  <SignUpButton>
-                  <Button  className="bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 text-white border-0 rounded-full px-6 py-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                    Sign Up
-                  </Button>
-                  </SignUpButton>
+                  <SignedOut>
+                    <SignInButton>
+                      <Button className=" from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 text-white border-0 rounded-full px-6 py-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                      Sign In
+                    </Button>
+                    </SignInButton>
+                    <SignUpButton>
+                    <Button  className="bg-gradient-to-r from-violet-500 to-blue-500 hover:from-violet-600 hover:to-blue-600 text-white border-0 rounded-full px-6 py-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                      Sign Up
+                    </Button>
+                    </SignUpButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserControl showName={true}/>
+                  </SignedIn>
                 </div>
               </div>
             </div>
