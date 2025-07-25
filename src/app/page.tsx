@@ -70,7 +70,6 @@ const Page = () => {
       <div className="absolute inset-0">
         {/* Primary gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-violet-900/20 via-black to-blue-900/30" />
-
         {/* Animated mesh gradient */}
         <div
           className="absolute inset-0 opacity-30"
@@ -168,7 +167,7 @@ const Page = () => {
               {/* Premium Badge */}
               <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-semibold mb-8 backdrop-blur-sm">
                 <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                Trusted by 50,000+ creators worldwide
+                Trusted by me and my friends
                 <Sparkles className="w-4 h-4 ml-2" />
               </div>
 
@@ -176,11 +175,11 @@ const Page = () => {
               <div className="space-y-6 mb-12">
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none">
                   <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-                    The Future of
+                    Generate Websites 
                   </span>
                   <br />
                   <span className="bg-gradient-to-r from-violet-300 via-blue-300 via-purple-300 to-violet-300 bg-clip-text text-transparent bg-[length:200%_100%] animate-pulse">
-                    Web Creation
+                    Using AI Agent
                   </span>
                 </h1>
 
@@ -190,7 +189,7 @@ const Page = () => {
                 </p>
               </div>
 
-              {/* Premium CTA */}
+              {/* CTA */}
               <div className="max-w-3xl mx-auto mb-16">
                 <div className="relative group">
                   <div className="absolute -inset-2 bg-gradient-to-r from-violet-500 to-blue-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
@@ -217,7 +216,7 @@ const Page = () => {
                       ) : (
                         <div className="flex items-center">
                           <Rocket className="w-5 h-5 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                          Generate Website
+                            Generate Website
                           <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
                         </div>
                       )}
