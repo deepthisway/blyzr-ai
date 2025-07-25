@@ -232,8 +232,8 @@ export const ProjectList = () => {
                             <button
                                 key={index}
                                 className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
-                                        ? 'bg-violet-500 shadow-lg shadow-violet-500/50'
-                                        : 'bg-white/20 hover:bg-white/40'
+                                    ? 'bg-violet-500 shadow-lg shadow-violet-500/50'
+                                    : 'bg-white/20 hover:bg-white/40'
                                     }`}
                                 onClick={() => goToSlide(index)}
                             />
