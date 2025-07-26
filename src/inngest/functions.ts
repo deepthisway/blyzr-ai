@@ -1,4 +1,4 @@
-import { createAgent, createNetwork, createTool, gemini } from "@inngest/agent-kit";
+import { createAgent, createNetwork, createState, createTool, gemini, Message } from "@inngest/agent-kit";
 import { inngest } from "./client";
 import { Sandbox } from "@e2b/code-interpreter";
 import { getSandbox, lastAssistantTextMessage } from "./util";
@@ -18,6 +18,35 @@ export const elixier = inngest.createFunction(
     const sandboxId = await step.run("get-sandbox-id", async () => {
       const sandbox = await Sandbox.create("blyzer-nextjs-dev");
       return sandbox.sandboxId;
+    });
+
+    const previousMessages = await step.run("get-previous-messages", async () => {
+      const formattedMessages: Message[] = [];
+      const messages = await prisma.message.findMany({
+        where: {
+          projectId: event.data.projectId,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+      
+      for(const message of messages ){
+        formattedMessages.push({
+          type: "text",
+          role: message.role === "ASSISTANT" ? "assistant" : "user",
+          content: message.content,
+        });
+      }
+      return formattedMessages;
+    });
+
+    const state = createState<AgentState>({
+      summary: "",
+      file: {},
+    },
+    {
+      messages: previousMessages,
     });
 
     const Agent = createAgent <AgentState> ({ 
