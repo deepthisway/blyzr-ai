@@ -129,3 +129,6 @@ eslint: {
   typescript: {
     ignoreBuildErrors: true,
   },  
+
+
+protected routes using protectedProcedure not just middleware

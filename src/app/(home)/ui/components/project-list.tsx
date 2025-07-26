@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Sparkles, Calendar, ArrowRight, FolderOpen, Star, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { useState } from 'react'
+import { useUser } from '@clerk/nextjs'
 
 interface Project {
     id: string
@@ -16,6 +17,7 @@ interface Project {
 }
 
 export const ProjectList = () => {
+    const user = useUser();
     const trpc = useTRPC()
     const router = useRouter()
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -86,12 +88,12 @@ export const ProjectList = () => {
             <section className="max-w-7xl mx-auto px-4 py-20 text-center">
                 <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 text-red-300 text-sm font-semibold mb-8 backdrop-blur-sm">
                     <Zap className="w-4 h-4 mr-2" />
-                    Connection Error
+                    Sign in to view your projects
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                    Something went wrong
+                    Sign in to view your projects
                 </h2>
-                <p className="text-xl text-red-400">Failed to load projects. Please refresh and try again.</p>
+                <p className="text-xl text-red-400">Sign in to view your projects</p>
             </section>
         )
     }
@@ -104,7 +106,7 @@ export const ProjectList = () => {
                     Ready to Create
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-                    Your Projects
+                    {user.user?.firstName} Projects
                 </h2>
                 <div className="max-w-md mx-auto">
                     <div className="relative mb-8">
