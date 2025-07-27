@@ -90,7 +90,7 @@ const MessageContainer = ({
                     Welcome to your project!
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Start building something amazing. Describe what you'd like to create and I'll help you build it step by step.
+                    Start building something amazing. Describe what you&apos; d like to create and I&apos;ll help you build it step by step.
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center mt-4">
                     <span className="px-3 py-1 text-xs bg-primary/10 text-primary rounded-full">

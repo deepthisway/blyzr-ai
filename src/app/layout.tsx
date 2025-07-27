@@ -15,8 +15,8 @@ const interMono = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "blyzer",
-  description: "blyzer is a platform for building AI applications with ease.",
+  title: "Elixier",
+  description: "elixier is a platform for building AI applications with ease.",
   icons: {
     icon: "/logo2.png",
   },

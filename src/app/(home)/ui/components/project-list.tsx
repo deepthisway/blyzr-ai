@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { Sparkles, Calendar, ArrowRight, FolderOpen, Star, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Sparkles, Calendar, ArrowRight, FolderOpen, Star, Zap } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
-import { useState } from 'react'
+
 import { useUser } from '@clerk/nextjs'
 
 interface Project {
@@ -20,31 +20,13 @@ export const ProjectList = () => {
     const user = useUser();
     const trpc = useTRPC()
     const router = useRouter()
-    const [currentIndex, setCurrentIndex] = useState(0)
 
     const { data: projects, isLoading, error } = useQuery(
         trpc.projects.getProjects.queryOptions()
     )
 
-    // Get top 5 most recently updated projects
-    const topProjects = projects?.slice().sort((a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    ).slice(0, 5)
-
     const handleProjectClick = (projectId: string) => {
         router.push(`/projects/${projectId}`)
-    }
-
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev + 1) % (topProjects?.length || 1))
-    }
-
-    const prevSlide = () => {
-        setCurrentIndex((prev) => (prev - 1 + (topProjects?.length || 1)) % (topProjects?.length || 1))
-    }
-
-    const goToSlide = (index: number) => {
-        setCurrentIndex(index)
     }
 
     const renderCardSkeleton = () => (
@@ -106,7 +88,7 @@ export const ProjectList = () => {
                     Ready to Create
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                    {user.user?.firstName}'s Projects
+                    {user.user?.firstName}&apos;s Projects
                 </h2>
                 <div className="max-w-md mx-auto">
                     <div className="relative mb-6">
@@ -135,7 +117,7 @@ export const ProjectList = () => {
                     Recent Projects
                 </h2>
                 <p className="text-gray-400">
-                    {projects?.length} project{projects?.length !== 1 ? 's' : ''} created
+                    {projects?.length} project{projects?.length !== 1 ? '&apos;s' : ''}
                 </p>
             </div>
 

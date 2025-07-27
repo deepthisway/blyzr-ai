@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Sparkles } from 'lucide-react'
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
 import { UserControl } from '@/components/user-control'
 import Link from 'next/link'

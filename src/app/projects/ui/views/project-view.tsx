@@ -1,8 +1,7 @@
 'use client'
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { useTRPC } from "@/trpc/client"
-import { useSuspenseQuery } from "@tanstack/react-query";
+
 import MessageContainer from "./components/project-msg-container";
 import { Suspense, useState } from "react";
 import { Fragment } from "@/generated/prisma";
@@ -10,7 +9,7 @@ import ProjectHeader from "./components/ProjectHeader";
 import { FragmentWeb } from "./components/FragmentWeb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { CrownIcon, EyeIcon, CodeIcon, Sparkles, Globe, FileText } from "lucide-react";
+import { Globe, FileText, Sparkles } from "lucide-react";
 import { FileExplorer } from "./components/file-explorer";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -43,11 +42,11 @@ const EmptyState = ({ icon: Icon, title, description }: {
 )
 
 export const ProjectView = ({ projectId }: Props) => {
-    const trpc = useTRPC();
+
     const [activeFragment, setActiveFragment] = useState<Fragment | null>(null)
-    const { data: project } = useSuspenseQuery(trpc.projects.getOne.queryOptions({
-        id: projectId
-    }))
+    // const { data: project } = useSuspenseQuery(trpc.projects.getOne.queryOptions({
+    //     id: projectId
+    // }))
     const [tabState, setTabState] = useState<'web' | 'code'>('web')
 
     return (

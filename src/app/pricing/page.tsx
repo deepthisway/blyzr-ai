@@ -1,11 +1,8 @@
 "use client"
 
-import { useTheme } from "@/components/ThemeProvider"
 import { PricingTable } from "@clerk/nextjs"
-import Image from "next/image"
 import { Navbar } from "@/components/Navbar"
 import { useState, useEffect } from "react"
-import { Star, Sparkles } from "lucide-react"
 
 export default function PricingPage() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

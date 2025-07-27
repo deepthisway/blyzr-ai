@@ -6,11 +6,10 @@ import { useTRPC } from '@/trpc/client'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
-import { Sparkles, Zap, ArrowRight, Code, Palette, Rocket, Star, Globe, Cpu, Shield, CloudLightningIcon, } from 'lucide-react'
+import { Sparkles, ArrowRight, Palette, Rocket, Star, Shield, CloudLightningIcon } from 'lucide-react'
 import { ProjectList } from './(home)/ui/components/project-list'
-import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
-import { UserControl } from '@/components/user-control'
 import { Navbar } from '@/components/Navbar'
+import Image from 'next/image'
 
 const Page = () => {
   const trpc = useTRPC();
@@ -202,7 +201,7 @@ const Page = () => {
               </div>
 
               {/* Social Proof */}
-              <div className="mt-20 flex flex-col items-center space-y-6">
+              {/* <div className="mt-20 flex flex-col items-center space-y-6">
                 <p className="text-gray-500 text-sm uppercase tracking-wide font-semibold">
                   Powering websites for
                 </p>
@@ -212,7 +211,7 @@ const Page = () => {
                   <Code className="w-8 h-8 text-gray-400" />
                   <Zap className="w-8 h-8 text-gray-400" />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -225,14 +224,11 @@ const Page = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-3 mb-6 md:mb-0">
-                <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-blue-500 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-2xl font-bold text-white">Blyzr AI</span>
+                <Image src="/logo.png" alt="Logo" width={150} height={150} />
               </div>
 
               <div className="text-center text-gray-400 mb-6 md:mb-0">
-                <p>© 2025 Blyzr AI. Crafted with ❤️ for creators worldwide.</p>
+                <p>© 2025 Elixier AI. Crafted for creators worldwide.</p>
               </div>
 
               <div className="flex items-center space-x-8 text-gray-400">
