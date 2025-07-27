@@ -17,6 +17,8 @@ export const elixier = inngest.createFunction(
   async ({ event, step }) => {
     const sandboxId = await step.run("get-sandbox-id", async () => {
       const sandbox = await Sandbox.create("blyzer-nextjs-dev");
+      // console.log("event.data: from first", event.data); // userId bug fix
+      // console.log("event.user: from first", event.user);
       return sandbox.sandboxId;
     });
 
@@ -217,10 +219,10 @@ export const elixier = inngest.createFunction(
     });
 
     const userId = event.data.userId;
-    console.log("Full event object:", JSON.stringify(event, null, 2));
-    console.log("event.data:", event.data);
-    console.log("event.user:", event.user);
-    console.log("event.user?.userId:", event.user?.userId);
+    // console.log("Full event object: from second", JSON.stringify(event, null, 2));
+    // console.log("event.data: from second", event.data);
+    // console.log("event.user: from second", event.user);
+    // console.log("event.user?.userId: from second", event.user?.userId);
 
     if (!userId) {
       throw new Error("userId is missing from event data");
@@ -229,10 +231,11 @@ export const elixier = inngest.createFunction(
     await step.run("save-result", async () => {
       // dont create the fragment if info not available
       if(isError){
+        // console.log("from inside run", event.data.userId);
         return await prisma.message.create({
           data: {
             projectId: event.data.projectId,  
-            userId: userId,
+            userId: event.data.userId,
             content: "An error occurred while processing your request.",
             type: "ERROR",
             role: "ASSISTANT",
@@ -250,7 +253,7 @@ export const elixier = inngest.createFunction(
       return await prisma.message.create({
         data: {
           projectId: event.data.projectId,
-          userId: event.user.userId!,
+          userId: event.data.userId,
           content: response || "No summary provided",
           role: "ASSISTANT",
           type: "RESULT",
