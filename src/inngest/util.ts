@@ -11,11 +11,15 @@ export function lastAssistantTextMessage(result: AgentResult) {
   To safely retrieve the content of the last message sent by the assistant, 
   in plain string form, whether it's a string or a structured rich message.
   */
-  const lastMessage = result.output.findLastIndex(
+  const assistantMessages = result.output.filter(
     (message) => message.role === "assistant"
   );
-
-  const message = result.output[lastMessage] as TextMessage;
+  
+  if (assistantMessages.length === 0) {
+    return undefined;
+  }
+  
+  const message = assistantMessages[assistantMessages.length - 1] as TextMessage;
 
   return message?.content
     ? typeof message.content === "string"
