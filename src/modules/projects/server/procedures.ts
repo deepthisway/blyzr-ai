@@ -65,6 +65,7 @@ export const projectsRouter = createTRPCRouter({
         data: {
           value: input.value,
           projectId: createProject.id,
+          userId: ctx.auth.userId!,
         },
       });
 

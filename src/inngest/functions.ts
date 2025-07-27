@@ -215,6 +215,16 @@ export const elixier = inngest.createFunction(
       const host = sandbox.getHost(3000);
       return `http://${host}`;
     });
+
+    const userId = event.data.userId;
+    console.log("Full event object:", JSON.stringify(event, null, 2));
+    console.log("event.data:", event.data);
+    console.log("event.user:", event.user);
+    console.log("event.user?.userId:", event.user?.userId);
+
+    if (!userId) {
+      throw new Error("userId is missing from event data");
+    }
     // save the returned sandbox URL, summary, and files in the db
     await step.run("save-result", async () => {
       // dont create the fragment if info not available
@@ -222,7 +232,7 @@ export const elixier = inngest.createFunction(
         return await prisma.message.create({
           data: {
             projectId: event.data.projectId,  
-            userId: event.user.userId!,
+            userId: userId,
             content: "An error occurred while processing your request.",
             type: "ERROR",
             role: "ASSISTANT",
@@ -247,7 +257,7 @@ export const elixier = inngest.createFunction(
           fragment: {
             create: {
               sandboxUrl: sandboxUrl,
-              title: fragmentTitle || "Fragment",
+              title: generateFragmentTitle(),
               files: result.state.data.file || {},
             },
           },
