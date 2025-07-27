@@ -82,9 +82,10 @@ const MessageForm = ({ projectId }: Props) => {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(
-          "relative border p-4 pt-1 rounded-t-3xl bg-sidebar transition-shadow",
-          isFocused && "shadow-xs",
-          showUsage && "rounded-t-none"
+          "relative border border-border/50 p-4 bg-card/50 backdrop-blur-sm transition-all duration-200",
+          isFocused && "border-primary/50 shadow-lg shadow-primary/5",
+          showUsage && "rounded-t-none",
+          "rounded-lg"
         )}
       >
         <FormField
@@ -93,50 +94,68 @@ const MessageForm = ({ projectId }: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <TextareaAutosize
-                  {...field}
-                  disabled={isPending}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
-                  placeholder="What would you like to build?"
-                  onKeyDown={handleKeyDown}
-                  className="w-full resize-none border-0 bg-transparent p-0 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                  minRows={1}
-                  maxRows={10}
-                />
+                <div className="relative">
+                  <TextareaAutosize
+                    {...field}
+                    disabled={isPending}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    placeholder="What would you like to build today?"
+                    onKeyDown={handleKeyDown}
+                    className={cn(
+                      "w-full resize-none border-0 bg-transparent py-3 pr-12 text-sm placeholder:text-muted-foreground/70 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                      "leading-relaxed"
+                    )}
+                    minRows={1}
+                    maxRows={8}
+                  />
+                  
+                  {/* Send Button - Positioned absolutely */}
+                  <div className="absolute bottom-2 right-2">
+                    <Button
+                      type="submit"
+                      disabled={isDisabled}
+                      size="sm"
+                      className={cn(
+                        "size-8 rounded-full p-0 transition-all duration-200",
+                        isDisabled 
+                          ? "bg-muted text-muted-foreground cursor-not-allowed" 
+                          : "bg-primary hover:bg-primary/90 hover:scale-105 shadow-sm"
+                      )}
+                    >
+                      {isPending ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <ArrowUp className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs mt-1" />
             </FormItem>
           )}
         />
 
-        <div className="flex items-center justify-between mt-2">
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>
-            </kbd>
-            <span>+</span>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              Enter
-            </kbd>
-            <span>to submit</span>
+        {/* Footer with keyboard shortcut */}
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/30">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80">
+            <div className="flex items-center gap-1">
+              <kbd className="inline-flex h-5 select-none items-center gap-1 rounded border border-border/50 bg-muted/50 px-1.5 font-mono text-[10px] font-medium">
+                <span className="text-xs">⌘</span>
+              </kbd>
+              <span className="text-muted-foreground/60">+</span>
+              <kbd className="inline-flex h-5 select-none items-center gap-1 rounded border border-border/50 bg-muted/50 px-1.5 font-mono text-[10px] font-medium">
+                Enter
+              </kbd>
+            </div>
+            <span className="text-muted-foreground/60">to send</span>
           </div>
-
-          <Button
-            type="submit"
-            disabled={isDisabled}
-            size="sm"
-            className={cn(
-              "size-8 rounded-full p-0 transition-all",
-              !isDisabled && "hover:bg-primary/90"
-            )}
-          >
-            {isPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <ArrowUp className="h-4 w-4" />
-            )}
-          </Button>
+          
+          {/* Character count (optional) */}
+          <div className="text-xs text-muted-foreground/60">
+            {form.watch('value')?.length || 0}/10000
+          </div>
         </div>
       </form>
     </Form>
