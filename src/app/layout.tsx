@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {Inter} from "next/font/google"
 import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/client";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const geistSans = Geist({
+const interSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const interMono = Inter({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "blyzer",
-  description: "blyzer is a platform for building and deploying AI applications with ease.",
+  description: "blyzer is a platform for building AI applications with ease.",
+  icons: {
+    icon: "/logo2.png",
+  },
 };
-
+// add the icon for the tab logo view
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +32,7 @@ export default function RootLayout({
     <TRPCReactProvider>
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased` }
+        className={`${interSans.variable} ${interMono.variable} antialiased` }
         >
         {children}
       </body>

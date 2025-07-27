@@ -48,34 +48,34 @@ export const ProjectList = () => {
     }
 
     const renderCardSkeleton = () => (
-        <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-6 rounded-2xl animate-pulse min-w-[320px]">
-            <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 bg-white/10 rounded-xl"></div>
+        <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-4 rounded-xl animate-pulse">
+            <div className="flex items-center justify-between mb-3">
+                <div className="w-8 h-8 bg-white/10 rounded-lg"></div>
+                <div className="w-4 h-4 bg-white/10 rounded"></div>
             </div>
-            <div className="h-6 bg-white/10 rounded mb-3"></div>
-            <div className="h-4 bg-white/5 rounded mb-2"></div>
-            <div className="h-4 bg-white/5 rounded w-2/3"></div>
+            <div className="h-4 bg-white/10 rounded mb-2"></div>
+            <div className="h-3 bg-white/5 rounded w-2/3"></div>
         </Card>
     )
 
     if (isLoading) {
         return (
-            <section className="max-w-7xl mx-auto px-4 py-20">
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-semibold mb-8 backdrop-blur-sm">
+            <section className="max-w-7xl mx-auto px-4 py-12">
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-medium mb-6 backdrop-blur-sm">
                         <Sparkles className="w-4 h-4 mr-2" />
-                        Your AI Creations
+                        Your Projects
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                        Your Top Projects
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                        Recent Projects
                     </h2>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        Loading your amazing creations...
+                    <p className="text-gray-400">
+                        Loading your creations...
                     </p>
                 </div>
 
-                <div className="flex gap-6 overflow-hidden">
-                    {[...Array(3)].map((_, i) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {[...Array(8)].map((_, i) => (
                         <div key={i}>{renderCardSkeleton()}</div>
                     ))}
                 </div>
@@ -85,38 +85,38 @@ export const ProjectList = () => {
 
     if (error) {
         return (
-            <section className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 text-red-300 text-sm font-semibold mb-8 backdrop-blur-sm">
+            <section className="max-w-7xl mx-auto px-4 py-12 text-center">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 text-red-300 text-sm font-medium mb-6 backdrop-blur-sm">
                     <Zap className="w-4 h-4 mr-2" />
-                    Sign in to view your projects
+                    Authentication Required
                 </div>
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                     Sign in to view your projects
                 </h2>
-                <p className="text-xl text-red-400">Sign in to view your projects</p>
+                <p className="text-red-400">Please sign in to access your projects</p>
             </section>
         )
     }
 
     if (!projects || projects.length === 0) {
         return (
-            <section className="max-w-7xl mx-auto px-4 py-20 text-center">
-                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-semibold mb-8 backdrop-blur-sm">
+            <section className="max-w-7xl mx-auto px-4 py-12 text-center">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-medium mb-6 backdrop-blur-sm">
                     <Sparkles className="w-4 h-4 mr-2" />
                     Ready to Create
                 </div>
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-                    {user.user?.firstName} Projects
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                    {user.user?.firstName}'s Projects
                 </h2>
                 <div className="max-w-md mx-auto">
-                    <div className="relative mb-8">
-                        <div className="w-24 h-24 mx-auto bg-gradient-to-r from-violet-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/10">
-                            <FolderOpen className="w-12 h-12 text-violet-400" />
+                    <div className="relative mb-6">
+                        <div className="w-16 h-16 mx-auto bg-gradient-to-r from-violet-500/20 to-blue-500/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/10">
+                            <FolderOpen className="w-8 h-8 text-violet-400" />
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-2xl blur-xl animate-pulse"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-xl blur-xl animate-pulse"></div>
                     </div>
-                    <p className="text-xl text-gray-400 mb-6">
-                        No projects yet. Create your first AI-powered website above and watch the magic happen!
+                    <p className="text-gray-400 mb-4">
+                        No projects yet. Create your first AI-powered project and watch the magic happen!
                     </p>
                 </div>
             </section>
@@ -124,141 +124,95 @@ export const ProjectList = () => {
     }
 
     return (
-        <section className="max-w-7xl mx-auto px-4 py-20">
-            <div className="text-center mb-16">
-                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-semibold mb-8 backdrop-blur-sm">
+        <section className="max-w-7xl mx-auto px-4 py-12">
+            <div className="text-center mb-8">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-medium mb-4 backdrop-blur-sm">
                     <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                    Your AI Creations
+                    Your Projects
                     <Sparkles className="w-4 h-4 ml-2" />
                 </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    Recent Projects
+                </h2>
+                <p className="text-gray-400">
+                    {projects?.length} project{projects?.length !== 1 ? 's' : ''} created
+                </p>
             </div>
 
-            {/* Carousel Container */}
-            <div className="relative">
-                {/* Navigation Buttons */}
-                {topProjects && topProjects.length > 1 && (
-                    <>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm"
-                            onClick={prevSlide}
-                        >
-                            <ChevronLeft className="w-6 h-6 text-white" />
-                        </Button>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm"
-                            onClick={nextSlide}
-                        >
-                            <ChevronRight className="w-6 h-6 text-white" />
-                        </Button>
-                    </>
-                )}
-
-                {/* Carousel Content */}
-                <div className="overflow-hidden mx-12">
-                    <div
-                        className="flex transition-transform duration-500 ease-in-out gap-6"
-                        style={{
-                            transform: `translateX(-${currentIndex * (100 / Math.min(topProjects?.length || 1, 3))}%)`,
-                            width: `${Math.max((topProjects?.length || 1) * (100 / Math.min(topProjects?.length || 1, 3)), 100)}%`
-                        }}
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+                {projects?.slice(0, 12).map((project: Project) => (
+                    <Card
+                        key={project.id}
+                        className="group relative bg-white/5 backdrop-blur-xl border-white/10 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/10"
+                        onClick={() => handleProjectClick(project.id)}
                     >
-                        {topProjects?.map((project: Project) => (
-                            <div
-                                key={project.id}
-                                className="group relative flex-shrink-0"
-                                style={{ width: `${100 / Math.min(topProjects.length, 3)}%` }}
-                            >
-                                {/* Glow effect */}
-                                <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/20 to-blue-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
-                                <Card
-                                    className="relative bg-white/5 backdrop-blur-xl border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all duration-500 cursor-pointer transform hover:-translate-y-2 hover:shadow-2xl group mx-3"
-                                    onClick={() => handleProjectClick(project.id)}
+                        {/* Glow effect */}
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-500/20 to-blue-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        
+                        <div className="relative">
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="w-8 h-8 bg-gradient-to-r from-violet-500 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <Sparkles className="w-4 h-4 text-white" />
+                                </div>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 p-1 h-6 w-6 rounded-md bg-white/10 hover:bg-white/20 border-0"
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleProjectClick(project.id)
+                                    }}
                                 >
-                                    <div className="flex items-start justify-between mb-6">
-                                        <div className="w-12 h-12 bg-gradient-to-r from-violet-500 to-blue-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                            <Sparkles className="w-6 h-6 text-white" />
-                                        </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            className="opacity-0 group-hover:opacity-100 transition-all duration-300 p-2 h-10 w-10 rounded-xl bg-white/10 hover:bg-white/20 border-0"
-                                            onClick={(e) => {
-                                                e.stopPropagation()
-                                                handleProjectClick(project.id)
-                                            }}
-                                        >
-                                            <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform duration-300" />
-                                        </Button>
-                                    </div>
-
-                                    <h3 className="font-bold text-xl text-white mb-4 group-hover:text-violet-300 transition-colors duration-300 line-clamp-2">
-                                        {project.name}
-                                    </h3>
-
-                                    <div className="flex items-center text-sm text-gray-400 mb-4">
-                                        <Calendar className="w-4 h-4 mr-2 text-violet-400" />
-                                        <span>
-                                            Updated {formatDistanceToNow(new Date(project.updatedAt), { addSuffix: true })}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                                        <span className="text-xs text-gray-500">
-                                            Created {formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}
-                                        </span>
-                                        <div className="flex items-center space-x-2">
-                                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                            <span className="text-xs text-green-400 font-medium">Active</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Shimmer effect on hover */}
-                                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                                    </div>
-                                </Card>
+                                    <ArrowRight className="w-3 h-3 text-white" />
+                                </Button>
                             </div>
-                        ))}
-                    </div>
-                </div>
 
-                {/* Carousel Indicators */}
-                {topProjects && topProjects.length > 1 && (
-                    <div className="flex justify-center mt-8 space-x-2">
-                        {topProjects.map((_, index) => (
-                            <button
-                                key={index}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
-                                    ? 'bg-violet-500 shadow-lg shadow-violet-500/50'
-                                    : 'bg-white/20 hover:bg-white/40'
-                                    }`}
-                                onClick={() => goToSlide(index)}
-                            />
-                        ))}
-                    </div>
-                )}
+                            <h3 className="font-semibold text-white mb-2 group-hover:text-violet-300 transition-colors duration-300 line-clamp-2 text-sm">
+                                {project.name}
+                            </h3>
 
-                {/* Project Count */}
-                {projects && projects.length > 5 && (
-                    <div className="text-center mt-8">
-                        <p className="text-gray-500 text-sm">
-                            Showing 5 of {projects.length} projects
-                        </p>
-                        {/* <Button
-                            variant="ghost"
-                            className="mt-2 text-violet-400 hover:text-violet-300 hover:bg-violet-500/10"
-                            onClick={() => router.push('/projects/all')}
-                        >
-                            View All Projects <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button> */}
-                    </div>
-                )}
+                            <div className="flex items-center text-xs text-gray-400 mb-3">
+                                <Calendar className="w-3 h-3 mr-1 text-violet-400" />
+                                <span className="truncate">
+                                    {formatDistanceToNow(new Date(project.updatedAt), { addSuffix: true })}
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                                <span className="text-xs text-gray-500 truncate">
+                                    {formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}
+                                </span>
+                                <div className="flex items-center space-x-1">
+                                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-xs text-green-400 font-medium">Active</span>
+                                </div>
+                            </div>
+
+                            {/* Shimmer effect on hover */}
+                            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                            </div>
+                        </div>
+                    </Card>
+                ))}
             </div>
+
+            {/* Show more projects button */}
+            {projects && projects.length > 12 && (
+                <div className="text-center">
+                    <p className="text-gray-500 text-sm mb-3">
+                        Showing 12 of {projects.length} projects
+                    </p>
+                    {/* <Button
+                        variant="ghost"
+                        className="text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 text-sm"
+                        onClick={() => router.push('/projects')}
+                    >
+                        View All Projects <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button> */}
+                </div>
+            )}
         </section>
     )
 }

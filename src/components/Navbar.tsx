@@ -5,6 +5,7 @@ import { Sparkles } from 'lucide-react'
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
 import { UserControl } from '@/components/user-control'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface NavbarProps {
   showFeatures?: boolean;
@@ -18,12 +19,14 @@ export function Navbar({ showFeatures = true }: NavbarProps) {
           <div className="flex justify-between items-center">
             {/* Logo Section */}
             <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Blyzr AI
-              </span>
+                <Image
+                src="/logo.png"
+                alt="Blyzr AI Logo"
+                width={120}
+                height={80}
+                className="transition-transform hover:scale-105"
+                priority
+                />
             </Link>
 
             {/* Navigation Links */}

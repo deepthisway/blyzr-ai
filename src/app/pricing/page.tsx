@@ -88,27 +88,18 @@ export default function PricingPage() {
                 <div className="container mx-auto px-4 py-8 flex-grow">
                     <div className="flex flex-col items-center justify-center min-h-screen max-w-4xl mx-auto">
                         <section className="space-y-8 pt-[8vh] 2xl:pt-16 w-full">
-                            {/* Premium Badge */}
-                            <div className="flex justify-center mb-8">
-                                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-500/20 to-blue-500/20 border border-violet-500/30 text-violet-300 text-sm font-semibold backdrop-blur-sm">
-                                    <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                                    Premium Plans Available
-                                    <Sparkles className="w-4 h-4 ml-2" />
-                                </div>
-                            </div>
-
                             {/* Header Section */}
                             <div className="flex flex-col items-center space-y-6">
-                                <div className="relative">
+                                {/* <div className="relative">
                                     <Image
-                                        src="/logo.svg"
+                                        src="/logo.png"
                                         alt="Blyzr AI Logo"
-                                        width={80}
-                                        height={80}
+                                        width={180}
+                                        height={180}
                                         className="transition-transform hover:scale-105"
                                         priority
                                     />
-                                </div>
+                                </div> */}
                                 <div className="text-center space-y-4">
                                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none">
                                         <span className="bg-gradient-to-r from-white via-violet-200 to-violet-400 bg-clip-text text-transparent">
@@ -143,7 +134,7 @@ export default function PricingPage() {
                             {/* Additional Info */}
                             <div className="text-center pt-8">
                                 <p className="text-sm text-gray-400">
-                                    All plans include 24/7 support and a 30-day money-back guarantee
+                                    All plans include 24/7 support and a 30-day money-back guarantee.
                                 </p>
                             </div>
                         </section>
