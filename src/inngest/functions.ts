@@ -16,7 +16,11 @@ export const elixier = inngest.createFunction(
   { event: "elixier/run" },
   async ({ event, step }) => {
     const sandboxId = await step.run("get-sandbox-id", async () => {
-      const sandbox = await Sandbox.create("blyzer-nextjs-dev");
+      const sandbox = await Sandbox.create("blyzer-nextjs-dev",
+        {
+          timeoutMs: 6000000, // total of 100 minutes
+        }
+      );
       // console.log("event.data: from first", event.data); // userId bug fix
       // console.log("event.user: from first", event.user);
       return sandbox.sandboxId;
@@ -215,7 +219,7 @@ export const elixier = inngest.createFunction(
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);
       const host = sandbox.getHost(3000);
-      return `http://${host}`;
+      return `https://${host}`;
     });
 
     const userId = event.data.userId;
