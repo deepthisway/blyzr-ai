@@ -18,7 +18,7 @@ export const elixier = inngest.createFunction(
     const sandboxId = await step.run("get-sandbox-id", async () => {
       const sandbox = await Sandbox.create("blyzer-nextjs-dev",
         {
-          timeoutMs: 6000000, // total of 100 minutes
+          timeoutMs: 3500000, // total of 58 minutes
         }
       );
       // console.log("event.data: from first", event.data); // userId bug fix
